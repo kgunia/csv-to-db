@@ -29,11 +29,11 @@
 	 */
 
 	// DB configuration
-	$db_host	=	""; 				// DB host
+	$db_host	= ""; 				// DB host
 	$db_user	= ""; 				// DB user
-	$db_pass	= "";					// DB password
-	$db_name	= "";					// DB name
-	$db_table	= "";					// BD table
+	$db_pass	= "";				// DB password
+	$db_name	= "";				// DB name
+	$db_table	= "";				// BD table
 
 	// create connection to DB
 	$conn = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
