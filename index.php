@@ -29,11 +29,11 @@
 	 */
 
 	// DB configuration
-	$db_host	=	"localhost"; 				// DB host
-	$db_user	= "admin_xml"; 				// DB user
-	$db_pass	= "3bUP9YwyDYfPu257";	// DB password
-	$db_name	= "admin_presta";			// DB name
-	$db_table	= "kg_xml";						// BD table
+	$db_host	=	""; 				// DB host
+	$db_user	= ""; 				// DB user
+	$db_pass	= "";					// DB password
+	$db_name	= "";					// DB name
+	$db_table	= "";					// BD table
 
 	// create connection to DB
 	$conn = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
