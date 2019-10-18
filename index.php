@@ -29,11 +29,11 @@
 	 */
 
 	// DB configuration
-	$db_host	= ""; 				// DB host
+	$db_host	=	""; 				// DB host
 	$db_user	= ""; 				// DB user
-	$db_pass	= "";				// DB password
-	$db_name	= "";				// DB name
-	$db_table	= "";				// BD table
+	$db_pass	= "";					// DB password
+	$db_name	= "";					// DB name
+	$db_table	= "";					// BD table
 
 	// create connection to DB
 	$conn = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
@@ -67,14 +67,14 @@
 				// skip first row 
 				if($flag) { $flag = false; continue; }
 				
-				// assign and escape variables for security
-				$sku = mysqli_real_escape_string($conn, $row[0]);					
-				$vat = mysqli_real_escape_string($conn, $row[1]);
-				$lenght = mysqli_real_escape_string($conn, $row[2]);
-				$width = mysqli_real_escape_string($conn, $row[3]);
-				$height = mysqli_real_escape_string($conn, $row[4]);
-				$net_weight = mysqli_real_escape_string($conn, $row[5]);
-				$gross_weight = mysqli_real_escape_string($conn, $row[6]);
+				// assign, escape, cov=nvert variables for security (SQL, HTML Injection and XSS) 			
+				$sku = htmlentities(mysqli_real_escape_string($conn, $row[0]));
+				$vat = htmlentities(mysqli_real_escape_string($conn, $row[1]));
+				$lenght = htmlentities(mysqli_real_escape_string($conn, $row[2]));
+				$width = htmlentities(mysqli_real_escape_string($conn, $row[3]));
+				$height = htmlentities(mysqli_real_escape_string($conn, $row[4]));
+				$net_weight = htmlentities(mysqli_real_escape_string($conn, $row[5]));
+				$gross_weight = htmlentities(mysqli_real_escape_string($conn, $row[6]));
 				
 				// if data is not empty, update DB 
 				if (!empty($sku) || !empty($vat) || !empty($lenght) || !empty($width) || !empty($height) || !empty($net_weight) || !empty($gross_weight)) {
