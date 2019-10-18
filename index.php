@@ -25,7 +25,7 @@
 	 * @license     http://www.opensource.org/licenses/mit-license
 	 * @link        http://github.com/kgunia/csv-to-db
 	 * @package     csv-to-db
-	 * @version     1.0.0
+	 * @version     1.0.1
 	 */
 
 	// DB configuration
@@ -67,18 +67,18 @@
 				// skip first row 
 				if($flag) { $flag = false; continue; }
 				
-				// assign rows to specific variable
-				$sku = $row[0];					
-				$vat = $row[1];
-				$lenght = $row[2];
-				$width = $row[3];
-				$height = $row[4];
-				$net_weight = $row[5];
-				$gross_weight = $row[6];
+				// assign and escape variables for security
+				$sku = mysqli_real_escape_string($conn, $row[0]);					
+				$vat = mysqli_real_escape_string($conn, $row[1]);
+				$lenght = mysqli_real_escape_string($conn, $row[2]);
+				$width = mysqli_real_escape_string($conn, $row[3]);
+				$height = mysqli_real_escape_string($conn, $row[4]);
+				$net_weight = mysqli_real_escape_string($conn, $row[5]);
+				$gross_weight = mysqli_real_escape_string($conn, $row[6]);
 				
 				// if data is not empty, update DB 
 				if (!empty($sku) || !empty($vat) || !empty($lenght) || !empty($width) || !empty($height) || !empty($net_weight) || !empty($gross_weight)) {
-					$query = "insert into kg_xml(sku,vat,lenght,width,height,net_weight,gross_weight) values('".$sku."','".$vat."','".$lenght."','".$width."','".$height."','".$net_weight."','".$gross_weight."')";
+					$query = "insert into ".$db_table."(sku,vat,lenght,width,height,net_weight,gross_weight) values('".$sku."','".$vat."','".$lenght."','".$width."','".$height."','".$net_weight."','".$gross_weight."')";
 					$result = mysqli_query($conn, $query);
 					
 					// DB error handling
@@ -115,6 +115,6 @@
 	// loading footer template
 	require_once("./tpl/footer.php");
 	
-		// close SQL connection
+	// close SQL connection
 	mysqli_close($conn);
 ?>
