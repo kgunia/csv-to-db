@@ -9,9 +9,7 @@ Projekt csv-to-db powstał w celu uzupełnienia generowanych przez Presta Shop d
 
 ## Instalacja importera CSV
 
-1. przenieś katalog csv-to-db z całą zawartością na twój hosting www
-2. utwórz w bazie MySQL tabelę w której będziesz przetrzymywał dodatkowe pola (nazwa dowolna)
-3. tabela powinna zawierać następujące pola:
+przenieś katalog csv-to-db z całą zawartością na twój hosting www i utwórz w bazie MySQL tabelę w której będziesz przetrzymywał dodatkowe pola (nazwa dowolna), tabela powinna zawierać następujące pola:
 
 ```
 'id' INT(10) NOT NULL AUTO_INCREMENT
@@ -25,7 +23,7 @@ Projekt csv-to-db powstał w celu uzupełnienia generowanych przez Presta Shop d
 PRIMARY KEY('id')
 ```
 
-4. skonfiguruj połączenie w pliku 'index.php' (linia 32-36)
+3. skonfiguruj połączenie w pliku 'index.php' (linia 32-36)
 
 ```
 $db_host = "";  // DB host
@@ -49,13 +47,13 @@ $db_table = ""; // BD table
 
 ## Modyfikacja skryptu generującego XML
 
-1. dołącz do swojego zapytania utworzoną tabelę za pomocą:
+dołącz do swojego zapytania utworzoną tabelę za pomocą:
 
 ```
 JOIN nazwa_tabeli kg ON kg.sku = p.reference
 ```
 
-2. do polecenia do zapytania dołącz następujące kolumny: 
+do polecenia do zapytania dołącz następujące kolumny: 
 
 ```
 SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight
@@ -63,7 +61,7 @@ SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight
 
 **Pamiętaj aby użyć prefiksu np `kg.` nazw kolumn aby uniknąć kolizji**
 
-3. w funkcji prepareXML w odpowiednie miejsca dopisz następujące linie:
+w funkcji prepareXML w odpowiednie miejsca dopisz następujące linie:
 
 ```
 if (isset($row[$i]['vat'])){$xml .= '<Vat>'.$row[$i]['vat']."</Vat>\r\n"; }
@@ -74,7 +72,7 @@ if (isset($row[$i]['net_weight'])){$xml .= '<Szt_waga_netto>'.$row[$i]['net_weig
 if (isset($row[$i]['gross_weight'])){$xml .= '<Szt_waga_brutto>'.$row[$i]['gross_weight']."</Szt_waga_brutto>\r\n";}
 ```
 
-4. aby zdjęcia były wyświetlane jako osobna linia zamień linię
+aby zdjęcia były wyświetlane jako osobna linia zamień linię
 
 ```
 if (!empty($image)) {$xml .= '<Link_do_zdjecia>'.$image."</Link_do_zdjecia>\r\n";}
