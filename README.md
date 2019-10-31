@@ -41,9 +41,12 @@ $db_table = ""; // BD table
 **UWAGA: tabela z dodatkowymi danymi zeruje się przy każdorazowym imporcie pliku CSV!**
 
 ## Modyfikacja skryptu generującego XML
-1. dołącz do swojego zapytania utworzoną tabelę za pomocą `JOIN nazwa_tabeli kg ON kg.sku = p.reference`
-2. do polecenia do zapytania dołącz następujące kolumny: `SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight` **Pamiętaj aby użyć prefiksu np `kg.` nazw kolumn aby uniknąć kolizji**
-3. w funkcji prepareXML dopisz następujące linie:
+1. dołącz do swojego zapytania utworzoną tabelę za pomocą:
+```JOIN nazwa_tabeli kg ON kg.sku = p.reference```
+2. do polecenia do zapytania dołącz następujące kolumny: 
+```SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight``` 
+**Pamiętaj aby użyć prefiksu np `kg.` nazw kolumn aby uniknąć kolizji**
+3. w funkcji prepareXML w odpowiednie miejsca dopisz następujące linie:
 ```
 if (isset($row[$i]['vat'])){$xml .= '<Vat>'.$row[$i]['vat']."</Vat>\r\n"; }
 if (isset($row[$i]['lenght'])){$xml .= '<Szt_dlugosc>'.$row[$i]['lenght']."</Szt_dlugosc>\r\n";}
@@ -53,7 +56,7 @@ if (isset($row[$i]['net_weight'])){$xml .= '<Szt_waga_netto>'.$row[$i]['net_weig
 if (isset($row[$i]['gross_weight'])){$xml .= '<Szt_waga_brutto>'.$row[$i]['gross_weight']."</Szt_waga_brutto>\r\n";}
 ```
 4. aby zdjęcia były wyświetlane jako osobna linia zamień linię
-`if (!empty($image)) {$xml .= '<Link_do_zdjecia>'.$image."</Link_do_zdjecia>\r\n";}`
+```if (!empty($image)) {$xml .= '<Link_do_zdjecia>'.$image."</Link_do_zdjecia>\r\n";}```
 na następującą:
 ```
 if (isset($row[$i]['images'])) {
