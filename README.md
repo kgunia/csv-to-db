@@ -53,7 +53,7 @@ Dołącz do swojego zapytania utworzoną tabelę za pomocą:
 JOIN nazwa_tabeli kg ON kg.sku = p.reference
 ```
 
-Do polecenia do zapytania dołącz następujące kolumny **używając prefiksu (np `kg.`) do nazw kolumn w celu niknięcia kolizji**
+Do polecenia do zapytania dołącz następujące kolumny używając prefiksu `kg.` do nazw kolumn w celu niknięcia kolizji
 
 ```
 SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight
