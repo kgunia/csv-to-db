@@ -9,7 +9,7 @@ Projekt csv-to-db powstał w celu uzupełnienia generowanych przez Presta Shop d
 
 ## Instalacja importera CSV
 
-przenieś katalog csv-to-db z całą zawartością na twój hosting www i utwórz w bazie MySQL tabelę w której będziesz przetrzymywał dodatkowe pola (nazwa dowolna), tabela powinna zawierać następujące pola:
+Przenieś katalog csv-to-db z całą zawartością na twój hosting www i utwórz w bazie MySQL tabelę w której będziesz przetrzymywał dodatkowe pola (nazwa dowolna), tabela powinna zawierać następujące pola:
 
 ```
 'id' INT(10) NOT NULL AUTO_INCREMENT
@@ -47,21 +47,19 @@ $db_table = ""; // BD table
 
 ## Modyfikacja skryptu generującego XML
 
-dołącz do swojego zapytania utworzoną tabelę za pomocą:
+Dołącz do swojego zapytania utworzoną tabelę za pomocą:
 
 ```
 JOIN nazwa_tabeli kg ON kg.sku = p.reference
 ```
 
-do polecenia do zapytania dołącz następujące kolumny: 
+Do polecenia do zapytania dołącz następujące kolumny **używając prefiksu (np `kg.`) do nazw kolumn w celu niknięcia kolizji**
 
 ```
 SELECT kg.vat, kg.lenght, kg.width, kg.height, kg.net_weight, kg.gross_weight
 ``` 
 
-**Pamiętaj aby użyć prefiksu np `kg.` nazw kolumn aby uniknąć kolizji**
-
-w funkcji prepareXML w odpowiednie miejsca dopisz następujące linie:
+W funkcji prepareXML w odpowiednie miejsca dopisz następujące linie:
 
 ```
 if (isset($row[$i]['vat'])){$xml .= '<Vat>'.$row[$i]['vat']."</Vat>\r\n"; }
@@ -72,13 +70,13 @@ if (isset($row[$i]['net_weight'])){$xml .= '<Szt_waga_netto>'.$row[$i]['net_weig
 if (isset($row[$i]['gross_weight'])){$xml .= '<Szt_waga_brutto>'.$row[$i]['gross_weight']."</Szt_waga_brutto>\r\n";}
 ```
 
-aby zdjęcia były wyświetlane jako osobna linia zamień linię
+Aby zdjęcia były wyświetlane jako osobna linia zamień linię
 
 ```
 if (!empty($image)) {$xml .= '<Link_do_zdjecia>'.$image."</Link_do_zdjecia>\r\n";}
 ```
 
-na następującą:
+Na następującą:
 
 ```
 if (isset($row[$i]['images'])) {
